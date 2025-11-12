@@ -5,7 +5,7 @@ const n = [
     type: "backofficeEntryPoint",
     js: () => import("./entrypoint-CkOuTyHN.js")
   }
-], a = [
+], t = [
   {
     name: "Cork Dashboard",
     alias: "Cork.Dashboard",
@@ -40,7 +40,7 @@ const n = [
       }
     ]
   }
-], t = [
+], i = [
   {
     type: "menu",
     alias: "cork.menu",
@@ -49,7 +49,7 @@ const n = [
       label: "Pins"
     }
   }
-], i = [
+], a = [
   {
     type: "menuItem",
     alias: "cork.menu.item",
@@ -64,13 +64,28 @@ const n = [
     }
   }
 ], o = [
+  {
+    type: "entityAction",
+    kind: "default",
+    alias: "Cork.PinItemAction",
+    name: "Cork Pin Action",
+    weight: 0,
+    api: () => import("./pin-item.action-SAEaROoM.js"),
+    forEntityTypes: ["document"],
+    meta: {
+      icon: "icon-pushpin",
+      label: "Pin this page"
+    }
+  }
+], s = [
   ...n,
-  ...a,
-  ...e,
   ...t,
-  ...i
+  ...e,
+  ...i,
+  ...a,
+  ...o
 ];
 export {
-  o as manifests
+  s as manifests
 };
 //# sourceMappingURL=cork.js.map
