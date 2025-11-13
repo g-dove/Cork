@@ -1,4 +1,4 @@
-import { PinItemAction } from './pin-item.element.ts';
+import { PinItemAction } from './pin-item.action.ts';
 
 const manifest = {
   type: 'entityAction',
