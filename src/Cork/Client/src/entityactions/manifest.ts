@@ -1,15 +1,15 @@
-import { PinItemAction } from './pin-item.action.ts';
-
-const manifest = {
-  type: 'entityAction',
-  alias: 'My.EntityAction',
-  name: 'My Entity Action',
-  weight: 10,
-  api: PinItemAction,
-  forEntityTypes: ['my-entity'],
-  meta: {
-    icon: 'icon-add',
-    label: 'My Entity Action',
-    repositoryAlias: 'My.Repository',
-  },
-};
+export const manifests: Array<UmbExtensionManifest> = [
+  {
+    type: 'entityAction',
+    kind: 'default',
+    alias: 'Cork.PinItemAction',
+    name: 'Cork Pin Action',
+    weight: 0,
+    api: () => import('./pin-item.action.ts'),
+    forEntityTypes: ['document'],
+    meta: {
+      icon: 'icon-pushpin',
+      label: 'Pin this page',
+    }
+  }
+];
