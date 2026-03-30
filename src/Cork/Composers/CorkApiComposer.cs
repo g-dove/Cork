@@ -12,6 +12,8 @@ using Microsoft.OpenApi;
 using Cork.Repositories;
 using Cork.NotificationHandlers;
 using Umbraco.Cms.Core.Notifications;
+using Cork.Config;
+using Microsoft.Extensions.Configuration;
 
 namespace Cork.Composers
 {
@@ -24,6 +26,8 @@ namespace Cork.Composers
             builder.AddNotificationHandler<ContentMovedToRecycleBinNotification, ContentMovedToRecycleBinNotificationHandler>();
 
             builder.Services.AddSingleton<IOperationIdHandler, CustomOperationHandler>();
+
+            builder.Services.Configure<FavouritesSettingsConfig>(builder.Config.GetSection("Favourites"));
 
             builder.Services.Configure<SwaggerGenOptions>(opt =>
             {

@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using Cork.Config;
 using Cork.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,15 +15,18 @@ public class CorkFavouritesApiController : CorkApiControllerBase
     private readonly ICorkFavouritesRepository _favouritesRepository;
     private readonly IBackOfficeSecurityAccessor _backOfficeSecurityAccessor;
     private readonly IContentService _contentService;
+    private readonly IFavouritesSettingsConfig _corkSettings;
 
     public CorkFavouritesApiController(
         ICorkFavouritesRepository favouritesRepository,
         IBackOfficeSecurityAccessor backOfficeSecurityAccessor,
-        IContentService contentService)
+        IContentService contentService,
+        IFavouritesSettingsConfig corkSettings)
     {
         _favouritesRepository = favouritesRepository;
         _backOfficeSecurityAccessor = backOfficeSecurityAccessor;
         _contentService = contentService;
+        _corkSettings = corkSettings;
     }
 
     private Guid GetCurrentUserKey()
@@ -55,8 +59,15 @@ public class CorkFavouritesApiController : CorkApiControllerBase
     [HttpPost("favourites")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult AddFavourite([FromBody] AddFavouriteRequest request)
-    {
+    { 
         var userKey = GetCurrentUserKey();
+        var favouritesCount = _favouritesRepository.GetFavourites(userKey).Count();
+
+        if (favouritesCount >= _corkSettings.MaxLimit)
+        {
+            return BadRequest($"You can only have {_corkSettings.MaxLimit} favourites. Please remove one before adding another.");
+        }
+
         _favouritesRepository.AddFavourite(userKey, request.NodeKey);
         return Ok();
     }
