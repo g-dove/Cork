@@ -14,7 +14,7 @@ const i = [
     meta: {
       menu: "Cork.Menu"
     },
-    element: () => import("./sidebar.element-D0iywQMz.js"),
+    element: () => import("./sidebar.element-BUuE69OL.js"),
     weight: 500,
     conditions: [
       {
@@ -37,7 +37,7 @@ const i = [
     name: "Cork Menu Item",
     alias: "Cork.Menu.Item",
     type: "menuItem",
-    element: () => import("./pins.element-CzDmHfQI.js"),
+    element: () => import("./pins.element-lJavsjd7.js"),
     meta: {
       label: "Favourites",
       icon: "icon-pin",
@@ -101,21 +101,21 @@ const i = [
     name: "Cork Is Favourited Condition",
     alias: s,
     type: "condition",
-    api: () => import("./is-favourited.condition-XHws4fJf.js")
+    api: () => import("./is-favourited.condition-0ty6wB-Q.js")
   },
   {
     name: "Cork Is Not Favourited Condition",
     alias: r,
     type: "condition",
-    api: () => import("./is-not-favourited.condition-BFcs-_RG.js")
+    api: () => import("./is-not-favourited.condition-D5WRlaNP.js")
   }
 ], c = [
   {
     type: "workspaceAction",
     alias: "Cork.WorkspaceAction.Pin",
     name: "Cork Pin Workspace Action",
-    api: () => import("./workspaceaction.action-DiLCAWkY.js"),
-    element: () => import("./workspaceaction.element-CRyNjry6.js"),
+    api: () => import("./workspaceaction.action-B5Prj3Fn.js"),
+    element: () => import("./workspaceaction.element-Ds1GyM1v.js"),
     weight: 100,
     conditions: [
       {

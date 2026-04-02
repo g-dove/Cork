@@ -1,15 +1,15 @@
-import { LitElement as C, html as k, css as b, property as P, state as m, customElement as y } from "@umbraco-cms/backoffice/external/lit";
+import { LitElement as C, html as k, css as y, property as b, state as m, customElement as P } from "@umbraco-cms/backoffice/external/lit";
 import { UmbElementMixin as E } from "@umbraco-cms/backoffice/element-api";
 import { UMB_DOCUMENT_WORKSPACE_CONTEXT as x } from "@umbraco-cms/backoffice/document";
 import { c as O } from "./client.gen-Ce7o8kG8.js";
 var W = Object.defineProperty, M = Object.getOwnPropertyDescriptor, w = (t) => {
   throw TypeError(t);
-}, u = (t, e, i, a) => {
-  for (var n = a > 1 ? void 0 : a ? M(e, i) : e, l = t.length - 1, d; l >= 0; l--)
-    (d = t[l]) && (n = (a ? d(e, i, n) : d(n)) || n);
-  return a && n && W(e, i, n), n;
-}, v = (t, e, i) => e.has(t) || w("Cannot " + i), p = (t, e, i) => (v(t, e, "read from private field"), e.get(t)), h = (t, e, i) => e.has(t) ? w("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), U = (t, e, i, a) => (v(t, e, "write to private field"), e.set(t, i), i), _ = (t, e, i) => (v(t, e, "access private method"), i), r, c, s, f, g;
-let o = class extends E(C) {
+}, u = (t, e, i, o) => {
+  for (var n = o > 1 ? void 0 : o ? M(e, i) : e, l = t.length - 1, d; l >= 0; l--)
+    (d = t[l]) && (n = (o ? d(e, i, n) : d(n)) || n);
+  return o && n && W(e, i, n), n;
+}, v = (t, e, i) => e.has(t) || w("Cannot " + i), p = (t, e, i) => (v(t, e, "read from private field"), e.get(t)), h = (t, e, i) => e.has(t) ? w("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), U = (t, e, i, o) => (v(t, e, "write to private field"), e.set(t, i), i), _ = (t, e, i) => (v(t, e, "access private method"), i), r, c, s, f, g;
+let a = class extends E(C) {
   constructor() {
     super(), h(this, s), this._isPinned = !1, this._loading = !0, h(this, r), h(this, c, () => _(this, s, f).call(this)), this.consumeContext(x, (t) => {
       U(this, r, t), _(this, s, f).call(this);
@@ -51,14 +51,15 @@ f = async function() {
   }
   const { data: i } = await O.get({
     url: "/umbraco/cork/api/v1/favourites",
+    query: { contentType: "content" },
     security: [{ scheme: "bearer", type: "http" }]
-  }), a = i ?? [];
-  this._isPinned = a.some((n) => n.nodeKey === t), this._loading = !1;
+  }), o = i ?? [];
+  this._isPinned = o.some((n) => n.nodeKey === t), this._loading = !1;
 };
 g = async function() {
   this.api && (this._loading = !0, await this.api.execute(), this._loading = !1);
 };
-o.styles = b`
+a.styles = y`
     .cork-workspace-button span {
       margin: 0 6px 0 2px;
     }
@@ -68,18 +69,18 @@ o.styles = b`
     }
   `;
 u([
-  P({ attribute: !1 })
-], o.prototype, "api", 2);
+  b({ attribute: !1 })
+], a.prototype, "api", 2);
 u([
   m()
-], o.prototype, "_isPinned", 2);
+], a.prototype, "_isPinned", 2);
 u([
   m()
-], o.prototype, "_loading", 2);
-o = u([
-  y("cork-pin-workspace-action")
-], o);
+], a.prototype, "_loading", 2);
+a = u([
+  P("cork-pin-workspace-action")
+], a);
 export {
-  o as default
+  a as default
 };
-//# sourceMappingURL=workspaceaction.element-CRyNjry6.js.map
+//# sourceMappingURL=workspaceaction.element-Ds1GyM1v.js.map

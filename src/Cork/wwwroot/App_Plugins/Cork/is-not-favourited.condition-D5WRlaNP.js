@@ -1,6 +1,6 @@
 import { UmbConditionBase as s } from "@umbraco-cms/backoffice/extension-registry";
 import { UMB_ENTITY_CONTEXT as o } from "@umbraco-cms/backoffice/entity";
-import { c as n } from "./check-is-favourited-DsXozMUl.js";
+import { c as n } from "./check-is-favourited-CvqDj88U.js";
 class h extends s {
   constructor(t, i) {
     super(t, i), this._entityUnique = null, this._boundRefresh = () => this._evaluate(), this.consumeContext(o, (e) => {
@@ -8,7 +8,7 @@ class h extends s {
     }), window.addEventListener("cork-favourites-updated", this._boundRefresh);
   }
   async _evaluate() {
-    this.permitted = await n(this._entityUnique);
+    this.permitted = !await n(this._entityUnique);
   }
   destroy() {
     window.removeEventListener("cork-favourites-updated", this._boundRefresh), super.destroy();
@@ -17,4 +17,4 @@ class h extends s {
 export {
   h as default
 };
-//# sourceMappingURL=is-favourited.condition-XHws4fJf.js.map
+//# sourceMappingURL=is-not-favourited.condition-D5WRlaNP.js.map

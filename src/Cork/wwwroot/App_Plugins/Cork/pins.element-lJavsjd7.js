@@ -33,6 +33,7 @@ let o = class extends m(h) {
     this._loading = !0;
     const { data: e, error: t } = await l.get({
       url: "/umbraco/cork/api/v1/favourites",
+      query: { contentType: "content" },
       security: [{ scheme: "bearer", type: "http" }]
     });
     !t && e && (this._favourites = e), this._loading = !1;
@@ -149,4 +150,4 @@ export {
   o as Pins,
   T as default
 };
-//# sourceMappingURL=pins.element-CzDmHfQI.js.map
+//# sourceMappingURL=pins.element-lJavsjd7.js.map

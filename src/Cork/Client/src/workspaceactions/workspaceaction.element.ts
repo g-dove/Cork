@@ -56,6 +56,7 @@ export default class CorkPinWorkspaceActionElement extends UmbElementMixin(LitEl
 
     const { data } = await client.get({
       url: "/umbraco/cork/api/v1/favourites",
+      query: { contentType: 'content' },
       security: [{ scheme: "bearer", type: "http" }],
     });
 

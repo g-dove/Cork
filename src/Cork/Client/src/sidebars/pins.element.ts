@@ -69,6 +69,7 @@ export class Pins extends UmbElementMixin(LitElement) {
     this._loading = true;
     const { data, error } = await client.get({
       url: "/umbraco/cork/api/v1/favourites",
+      query: { contentType: 'content' },
       security: [{ scheme: "bearer", type: "http" }],
     });
 

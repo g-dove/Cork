@@ -39,6 +39,7 @@ export default class CorkPinWorkspaceAction extends UmbWorkspaceActionBase<never
 
     const { data, error: fetchError } = await client.get({
       url: "/umbraco/cork/api/v1/favourites",
+      query: { contentType: 'content' },
       security: [{ scheme: "bearer", type: "http" }],
     });
 
@@ -72,7 +73,7 @@ export default class CorkPinWorkspaceAction extends UmbWorkspaceActionBase<never
     } else {
       const { error } = await client.post({
         url: "/umbraco/cork/api/v1/favourites",
-        body: { nodeKey: unique },
+        body: { nodeKey: unique, contentType: 'content' },
         security: [{ scheme: "bearer", type: "http" }],
       });
 
