@@ -35,6 +35,10 @@ public class CorkFavouritesApiController : CorkApiControllerBase
     [ProducesResponseType<IEnumerable<FavouriteResponse>>(StatusCodes.Status200OK)]
     public IActionResult GetFavourites([FromQuery] string contentType)
     {
+        if(contentType == null){
+            return BadRequest(new ArgumentNullException(nameof(contentType)));
+        };
+
         var userKey = GetCurrentUserKey();
         var favourites = _favouritesRepository.GetFavourites(userKey, contentType);
 

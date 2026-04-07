@@ -140,7 +140,7 @@ export class Pins extends UmbElementMixin(LitElement) {
   private async _saveSortOrder() {
     await client.put({
       url: "/umbraco/cork/api/v1/favourites/sort",
-      body: { nodeKeys: this._favourites.map((f) => f.nodeKey) },
+      body: { nodeKeys: this._favourites.map((f) => f.nodeKey), contentType: 'content' },
       security: [{ scheme: "bearer", type: "http" }],
     });
   }

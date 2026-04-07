@@ -35,7 +35,6 @@ public class CorkFavouritesRepository : ICorkFavouritesRepository
         using var scope = _scopeProvider.CreateScope();
         var existing = scope.Database.FirstOrDefault<CorkFavourite>(
             "WHERE userKey = @0 AND nodeKey = @1 AND contentType = @2", userKey, nodeKey, contentType);
-        ;
         if (existing == null)
         {
             var maxSortOrder = scope.Database.ExecuteScalar<int>(
@@ -78,7 +77,7 @@ public class CorkFavouritesRepository : ICorkFavouritesRepository
         {
             scope.Database.Execute(
                 $"UPDATE {CorkFavourite.TableName} SET sortOrder = @0 WHERE userKey = @1 AND nodeKey = @2 AND contentType = @3",
-                sortOrder, userKey, nodeKey);
+                sortOrder, userKey, nodeKey, contentType);
             sortOrder++;
         }
         scope.Complete();
