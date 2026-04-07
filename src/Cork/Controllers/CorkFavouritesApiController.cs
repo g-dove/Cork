@@ -33,17 +33,21 @@ public class CorkFavouritesApiController : CorkApiControllerBase
 
     [HttpGet("favourites")]
     [ProducesResponseType<IEnumerable<FavouriteResponse>>(StatusCodes.Status200OK)]
-    public IActionResult GetFavourites()
+    public IActionResult GetFavourites([FromQuery] string contentType)
     {
+        if(contentType == null){
+            return BadRequest(new ArgumentNullException(nameof(contentType)));
+        };
+
         var userKey = GetCurrentUserKey();
-        var favourites = _favouritesRepository.GetFavourites(userKey);
+        var favourites = _favouritesRepository.GetFavourites(userKey, contentType);
 
         var results = favourites
             .Select(f =>
             {
                 var content = _contentService.GetById(f.NodeKey);
                 return content != null
-                    ? new FavouriteResponse { NodeKey = f.NodeKey, NodeName = content.Name ?? "Untitled", Published = content.Published }
+                    ? new FavouriteResponse { NodeKey = f.NodeKey, ContentType = f.ContentType, NodeName = content.Name ?? "Untitled", Published = content.Published }
                     : null;
             })
             .Where(f => f != null)
@@ -57,7 +61,7 @@ public class CorkFavouritesApiController : CorkApiControllerBase
     public IActionResult AddFavourite([FromBody] AddFavouriteRequest request)
     {
         var userKey = GetCurrentUserKey();
-        _favouritesRepository.AddFavourite(userKey, request.NodeKey);
+        _favouritesRepository.AddFavourite(userKey, request.NodeKey, request.ContentType);
         return Ok();
     }
 
@@ -75,7 +79,7 @@ public class CorkFavouritesApiController : CorkApiControllerBase
     public IActionResult SortFavourites([FromBody] SortFavouritesRequest request)
     {
         var userKey = GetCurrentUserKey();
-        _favouritesRepository.UpdateSortOrder(userKey, request.NodeKeys);
+        _favouritesRepository.UpdateSortOrder(userKey, request.NodeKeys, request.ContentType);
         return Ok();
     }
 }
@@ -83,11 +87,13 @@ public class CorkFavouritesApiController : CorkApiControllerBase
 public class AddFavouriteRequest
 {
     public Guid NodeKey { get; set; }
+    public string ContentType { get; set; } = string.Empty;
 }
 
 public class FavouriteResponse
 {
     public Guid NodeKey { get; set; }
+    public string ContentType { get; set; } = string.Empty;
     public string NodeName { get; set; } = string.Empty;
     public bool Published { get; set; }
 }
@@ -95,4 +101,5 @@ public class FavouriteResponse
 public class SortFavouritesRequest
 {
     public List<Guid> NodeKeys { get; set; } = [];
+    public string ContentType { get; set; } = string.Empty;
 }

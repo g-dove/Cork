@@ -1,14 +1,14 @@
 import { UmbWorkspaceActionBase as i } from "@umbraco-cms/backoffice/workspace";
-import { UMB_NOTIFICATION_CONTEXT as r } from "@umbraco-cms/backoffice/notification";
-import { UMB_DOCUMENT_WORKSPACE_CONTEXT as n } from "@umbraco-cms/backoffice/document";
+import { UMB_NOTIFICATION_CONTEXT as n } from "@umbraco-cms/backoffice/notification";
+import { UMB_DOCUMENT_WORKSPACE_CONTEXT as r } from "@umbraco-cms/backoffice/document";
 import { c as s } from "./client.gen-Ce7o8kG8.js";
 class v extends i {
   #e;
   #t;
-  constructor(e, o) {
-    super(e, o), this.consumeContext(r, (t) => {
+  constructor(e, a) {
+    super(e, a), this.consumeContext(n, (t) => {
       this.#e = t;
-    }), this.consumeContext(n, (t) => {
+    }), this.consumeContext(r, (t) => {
       this.#t = t;
     });
   }
@@ -20,8 +20,9 @@ class v extends i {
       });
       return;
     }
-    const { data: o, error: t } = await s.get({
+    const { data: a, error: t } = await s.get({
       url: "/umbraco/cork/api/v1/favourites",
+      query: { contentType: "content" },
       security: [{ scheme: "bearer", type: "http" }]
     });
     if (t) {
@@ -30,24 +31,24 @@ class v extends i {
       });
       return;
     }
-    if ((o ?? []).some((a) => a.nodeKey === e)) {
-      const { error: a } = await s.delete({
+    if ((a ?? []).some((o) => o.nodeKey === e)) {
+      const { error: o } = await s.delete({
         url: "/umbraco/cork/api/v1/favourites/{nodeKey}",
         path: { nodeKey: e },
         security: [{ scheme: "bearer", type: "http" }]
       });
-      a ? this.#e?.peek("danger", {
+      o ? this.#e?.peek("danger", {
         data: { headline: "Failed to unpin node", message: "" }
       }) : (this.#e?.peek("positive", {
         data: { headline: "Removed from favourites", message: "" }
       }), window.dispatchEvent(new CustomEvent("cork-favourites-updated")));
     } else {
-      const { error: a } = await s.post({
+      const { error: o } = await s.post({
         url: "/umbraco/cork/api/v1/favourites",
-        body: { nodeKey: e },
+        body: { nodeKey: e, contentType: "content" },
         security: [{ scheme: "bearer", type: "http" }]
       });
-      a ? this.#e?.peek("danger", {
+      o ? this.#e?.peek("danger", {
         data: { headline: "Failed to pin node", message: "" }
       }) : (this.#e?.peek("positive", {
         data: { headline: "Added to favourites", message: "" }
@@ -58,4 +59,4 @@ class v extends i {
 export {
   v as default
 };
-//# sourceMappingURL=workspaceaction.action-DiLCAWkY.js.map
+//# sourceMappingURL=workspaceaction.action-B5Prj3Fn.js.map

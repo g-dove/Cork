@@ -10,5 +10,6 @@ public class CorkMigrationPlan : PackageMigrationPlan
     {
         To<AddFavouritesTable>("cork-favourites-001");
         To<AddSortOrderToFavourites>("cork-favourites-002");
+        To<AddContentTypeToFavourites>("cork-favourites-003");
     }
 }

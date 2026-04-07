@@ -19,6 +19,9 @@ public class CorkFavourite
     [Column("nodeKey")]
     public Guid NodeKey { get; set; }
 
+    [Column("contentType")]
+    public string ContentType { get; set; } = string.Empty;
+
     [Column("sortOrder")]
     public int SortOrder { get; set; }
 }
